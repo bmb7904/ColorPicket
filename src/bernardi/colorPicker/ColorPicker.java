@@ -12,6 +12,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -25,13 +27,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class ColorPicker extends Application {
 
-    private static Color shownColor;
     private static double redComponent;
     private static double greenComponent;
     private static double blueComponent;
-    private static String redValue;
-    private static String greenValue;
-    private static String blueValue;
 
     @Override
     public void start(Stage primaryStage) {
@@ -39,21 +37,23 @@ public class ColorPicker extends Application {
         root.setStyle("-fx-background-color: LIGHTGRAY;");
         Scene scene = new Scene(root);
 
-        String styleBackground = "-fx-background-color: ";
-        String styleFont = "-fx-font-weight: BOLD; -fx-font-size: 16px; -fx-text-fill: ";
+        String styleBackground = "-fx-color: ";
+        String styleFont = "-fx-font-family: sans-serif; -fx-font-weight: BOLDER; " +
+                "-fx-font-size: 15px; -fx-text-fill: ";
 
-        FlowPane leftPane = new FlowPane(Orientation.VERTICAL);
-        leftPane.setVgap(10);
+        String styleBackgroundRed = "-fx-background-color: RED; -fx-border-color: RED; " +
+                "-fx-color: RED";
+
+        VBox leftPane = new VBox();
+        VBox rightPane = new VBox();
+        HBox bottomPane = new HBox();
+        Rectangle rect = new Rectangle(400,250);
+
         leftPane.setAlignment(Pos.CENTER);
-        FlowPane rightPane = new FlowPane(Orientation.VERTICAL);
-        rightPane.setVgap(10);
         rightPane.setAlignment(Pos.CENTER);
-        FlowPane bottomPane = new FlowPane();
         bottomPane.setAlignment(Pos.CENTER);
 
-        Rectangle rect = new Rectangle(400,270);
-        shownColor = Color.BLUE;
-        rect.setFill(shownColor);
+        rect.setFill(Color.WHITE);
 
         CheckBox redCheckBox = new CheckBox();
         redCheckBox.setStyle(styleBackground + "RED;");
@@ -62,24 +62,28 @@ public class ColorPicker extends Application {
         CheckBox blueCheckBox = new CheckBox();
         blueCheckBox.setStyle(styleBackground + "BLUE;");
 
-        Label redLabel = new Label("0.58");
+        Label redLabel = new Label("0.00");
         redLabel.setStyle(styleFont + "RED;");
-        Label greenLabel = new Label("0049");
+        Label greenLabel = new Label("0.00");
         greenLabel.setStyle(styleFont + "GREEN;");
-        Label blueLabel = new Label("99.4");
+        Label blueLabel = new Label("0.00");
         blueLabel.setStyle(styleFont + "BLUE");
 
         Button randomizeButton = new Button("Randomize");
-        randomizeButton.setStyle("-fx-border-width: 1; -fx-border-color: BLUE;");
+        randomizeButton.setStyle("-fx-border-width: 1; -fx-border-color: BLUE; " +
+                "-fx-font-weight: BOLD; -fx-background-color: LIGHTGRAY");
 
         leftPane.getChildren().addAll(redCheckBox,greenCheckBox,blueCheckBox);
-        leftPane.setPadding(new Insets(0,20,0,10));
-        leftPane.setVgap(15);
         rightPane.getChildren().addAll(redLabel,greenLabel,blueLabel);
-        rightPane.setVgap(15);
-        rightPane.setPadding(new Insets(8));
         bottomPane.getChildren().add(randomizeButton);
-        bottomPane.setPadding(new Insets(0,0,10,0));
+
+        leftPane.setPadding(new Insets(10,13,0,14));
+        leftPane.setSpacing(20);
+        rightPane.setPadding(new Insets(10,10,0,10));
+        rightPane.setSpacing(20);
+        bottomPane.setPadding(new Insets(10));
+        root.setPadding(new Insets(20,0,0,0));
+
 
         root.setCenter(rect);
         root.setLeft(leftPane);
@@ -87,10 +91,6 @@ public class ColorPicker extends Application {
         root.setBottom(bottomPane);
 
         ThreadLocalRandom rand = ThreadLocalRandom.current();
-
-        randomizeButton.setOnAction(event -> {
-
-        });
 
         randomizeButton.setOnAction(event -> {
             if(redCheckBox.isSelected()) {
