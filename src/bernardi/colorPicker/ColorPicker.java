@@ -37,12 +37,11 @@ public class ColorPicker extends Application {
         root.setStyle("-fx-background-color: LIGHTGRAY;");
         Scene scene = new Scene(root);
 
+        // Sets the font and color for check boxes
         String styleBackground = "-fx-color: ";
         String styleFont = "-fx-font-family: sans-serif; -fx-font-weight: BOLDER; " +
                 "-fx-font-size: 15px; -fx-text-fill: ";
 
-        String styleBackgroundRed = "-fx-background-color: RED; -fx-border-color: RED; " +
-                "-fx-color: RED";
 
         VBox leftPane = new VBox();
         VBox rightPane = new VBox();
@@ -77,7 +76,7 @@ public class ColorPicker extends Application {
         rightPane.getChildren().addAll(redLabel,greenLabel,blueLabel);
         bottomPane.getChildren().add(randomizeButton);
 
-        leftPane.setPadding(new Insets(10,13,0,14));
+        leftPane.setPadding(new Insets(10,13,0,15));
         leftPane.setSpacing(20);
         rightPane.setPadding(new Insets(10,10,0,10));
         rightPane.setSpacing(20);
